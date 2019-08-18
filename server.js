@@ -34,7 +34,7 @@ app.get("/", (req, res) => {
 
 // 使用  routes  
 app.use("/api/usrs/", users)
-app.use('/api/profile', profile)
+app.use('/api/profiles', profile)
 
 const port = process.env.PORT || 5000;
 

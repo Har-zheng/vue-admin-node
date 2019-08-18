@@ -9,7 +9,7 @@ const ProfileSchama = new Schama({
     type: String,
     required: true
   }),
-  incode: ({
+  income: ({
     type: String,
     required: true
   }),
@@ -22,7 +22,8 @@ const ProfileSchama = new Schama({
     required: true
   }),
   remark: ({
-    type: String
+    type: String,
+    default: null
   }),
   date: ({
     type: Date,
