@@ -1,9 +1,9 @@
 import axios from 'axios'
 // 请求拦截
-var axios =  axios.create({
-  baseURL:  
+var server = axios.create({
+  baseURL: process.env.BASE_API
 })
 
 // 响应拦截
 
-export default axios
+export default server

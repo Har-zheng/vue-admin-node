@@ -4,7 +4,7 @@
   "description": "resful api",
   "main": "server.js",
   "scripts": {
-    "client-install": "npm install --prefix client",
+    "client-install": "cnpm install --prefix client",
     "client": "npm run start --prefix client",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
