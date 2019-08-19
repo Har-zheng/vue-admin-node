@@ -21,7 +21,7 @@ app.use(bodyParser.json());
 
 // content to mongodb
 mongoose.connect(db, { useNewUrlParser: true })
-  .then(() => console.log('Mongodb connect'))
+  .then(() => console.log('Mongodb Successful connection'))
   .catch(err => console.log(err))
 
 // 使用 passport
