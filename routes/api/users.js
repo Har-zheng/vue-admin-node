@@ -12,7 +12,9 @@ const passport = require('passport')
 // @desc 返回的请求的json数据
 // @access 私有 共有?
 router.get('/test', (req, res) => {
-  res.json({ msg: 'login works' })
+  res.json({
+    msg: 'login works'
+  })
 })
 
 
@@ -21,21 +23,28 @@ router.get('/test', (req, res) => {
 // @access 私有 共有?
 router.post("/register", (req, res) => {
   // 查询数据库中  是否已存在
-  User.findOne({ email: req.body.email })
+  User.findOne({
+      email: req.body.email
+    })
     .then((user) => {
       if (user) {
         return res.status(400).json('邮箱已注册!')
       } else {
-        const avatar = gravatar.url(req.body.email, { s: '200', r: 'pg', d: 'mm' })
-        const newUser = new User({
-          name: req.body.name,
-          email: req.body.email,
-          password: req.body.password,
-          identity: req.body.identity,
-          avatar,
+        const avatar = gravatar.url(req.body.email, {
+          s: '200',
+          r: 'pg',
+          d: 'mm'
         })
         bcrypt.genSalt(10, function (err, salt) {
-          bcrypt.hash(newUser.password, salt, (err, hash) => {
+          const newUser = new User({
+            name: req.body.name,
+            email: req.body.email,
+            password: req.body.password,
+            identity: req.body.identity,
+            avatar,
+          })
+          bcrypt.hash(newUser.password, salt, function (err, hash) {
+            // console.log(err)
             // Store hash in your password DB.
             if (err) throw err
             newUser.password = hash;
@@ -54,7 +63,9 @@ router.post("/register", (req, res) => {
 router.post("/login", (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
-  User.findOne({ email })
+  User.findOne({
+      email
+    })
     .then(user => {
       if (!user) {
         return res.status(400).json('用户不存在')
@@ -69,9 +80,14 @@ router.post("/login", (req, res) => {
               avatar: user.avatar,
               identity: user.identity
             }
-            jwt.sign(rule, keys.secretOrkey, { expiresIn: 3600 }, (err, token) => {
+            jwt.sign(rule, keys.secretOrkey, {
+              expiresIn: 10
+            }, (err, token) => {
               if (err) throw err;
-              res.json({ mes: true, token: 'Bearer ' + token })
+              res.json({
+                mes: true,
+                token: 'Bearer ' + token
+              })
             })
           } else {
             return res.status(400).json('密码错误!')
@@ -82,7 +98,9 @@ router.post("/login", (req, res) => {
 // &route GET api/users/login
 // @desc 返回token
 // @access Private
-router.get('/curent', passport.authenticate('jwt', { session: false }), (req, res) => {
+router.get('/curent', passport.authenticate('jwt', {
+  session: false
+}), (req, res) => {
   res.json({
     id: req.user.id,
     name: req.user.name,

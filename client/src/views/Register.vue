@@ -3,7 +3,6 @@
     <section class="from_container">
       <div class="manage_tip">
         <span class="title">后台管理系统</span>
-        {{ url }}
         <el-form
           ref="registerFrom"
           :model="registerUsers"
@@ -11,52 +10,20 @@
           label-width="80px"
           class="demo-ruleForm"
         >
-          <el-form-item
-            label="用户"
-            prop="name"
-          >
-            <el-input
-              v-model="registerUsers.name"
-              type="input"
-            />
+          <el-form-item label="用户" prop="name">
+            <el-input v-model="registerUsers.name" type="input" />
           </el-form-item>
-          <el-form-item
-            label="邮箱"
-            prop="email"
-          >
-            <el-input
-              v-model="registerUsers.email"
-              type="email"
-            />
+          <el-form-item label="邮箱" prop="email">
+            <el-input v-model="registerUsers.email" type="email" />
           </el-form-item>
-          <el-form-item
-            label="密码"
-            prop="password"
-          >
-            <el-input
-              v-model="registerUsers.password"
-              type="password"
-              autocomplete="off"
-            />
+          <el-form-item label="密码" prop="password">
+            <el-input v-model="registerUsers.password" type="password" autocomplete="off" />
           </el-form-item>
-          <el-form-item
-            label="确认密码"
-            prop="password2"
-          >
-            <el-input
-              v-model="registerUsers.password2"
-              type="password"
-              autocomplete="off"
-            />
+          <el-form-item label="确认密码" prop="password2">
+            <el-input v-model="registerUsers.password2" type="password" autocomplete="off" />
           </el-form-item>
-          <el-form-item
-            label="管理"
-            prop="identity"
-          >
-            <el-select
-              v-model="registerUsers.identity"
-              placeholder="请选择"
-            >
+          <el-form-item label="管理" prop="identity">
+            <el-select v-model="registerUsers.identity" placeholder="请选择">
               <el-option
                 v-for="item in options"
                 :key="item.value"
@@ -66,15 +33,8 @@
             </el-select>
           </el-form-item>
           <el-form-item>
-            <el-button
-              type="primary"
-              @click="submitForm('registerFrom')"
-            >
-              注册
-            </el-button>
-            <el-button @click="resetForm('registerFrom')">
-              重置
-            </el-button>
+            <el-button type="primary" @click="submitForm('registerFrom')">注册</el-button>
+            <el-button @click="resetForm('registerFrom')">重置</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -144,7 +104,15 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          alert('submit!')
+          this.$axios.post('/api/usrs/register', this.registerUsers).then(res => {
+            console.log(res)
+            this.$message({
+              showClose: true,
+              type: 'success',
+              message: '账号注册成功'
+            })
+          })
+          this.$router.push('/login')
         } else {
           console.log('error submit!!')
           return false

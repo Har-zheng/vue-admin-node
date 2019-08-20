@@ -1,9 +1,15 @@
 <template>
-  <div class="index">index.vue   111111111</div> 
+  <div class="index">
+    <HeadNav></HeadNav>  
+  </div> 
 </template>
 <script>
+import HeadNav from '../components/HeadNav'
 export default { 
-  name: 'Index'
+  name: 'Index',
+  components: {
+    HeadNav
+  }
 }
 </script>
 <style lang="stylus" scoped>
