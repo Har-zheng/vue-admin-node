@@ -4,6 +4,9 @@ import Index from './views/index.vue'
 import Register from './views/Register.vue'
 import Login from './views/login.vue'
 import NoFount from './views/NoFount.vue'
+import Home from './views/home.vue'
+import InfoShow from './views/InfoShow.vue'
+
 
 Vue.use(Router)
 
@@ -18,7 +21,22 @@ var router = new Router({
     {
       path: '/index',
       name: 'index',
-      component: Index
+      component: Index,
+      children:[
+        {
+          path: '',
+          component: Home
+        },
+        {
+          path: '/home',
+          component: Home
+        },
+        {
+          path: '/infoShow',
+          name: 'infoshow',
+          component: InfoShow
+        },
+      ]
     },
     { 
       path: '/register',

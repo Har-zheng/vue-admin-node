@@ -1,17 +1,16 @@
 import axios from 'axios'
 import {
   Loading, Message
-} from 'element-ui';
+} from 'element-ui'
 import router from '../router'
 
-let loadingInstance 
+let loadingInstance
 function startLoading() {
- loadingInstance = Loading.service({
+  loadingInstance = Loading.service({
     lock: true,
     text: '拼命加载中.......',
     background: 'rgba(0, 0, 0, 0.7)'
-  });
-  
+  })
 }
 function endLoading() {
   loadingInstance.close()
@@ -19,36 +18,32 @@ function endLoading() {
 
 var $axios = axios
 
-
 // 请求拦截
 $axios.interceptors.request.use(config => {
-  console.log(config)
-  if(localStorage.getItem('eletoken')){
+  if (localStorage.getItem('eletoken')) {
     config.headers.Authorization = localStorage.getItem('eletoken')
   }
   startLoading()
   return config
-}, error=> { 
+}, error => {
   return Promise.reject(error)
 })
 
 // 响应拦截
 
 $axios.interceptors.response.use(response => {
-  console.log(response)
   endLoading()
   return response
 }, error => {
   endLoading()
-  Message.error(error.response.data);
+  Message.error(error.response.data)
   const { status } = error.response
-  if(status === 401){
+  if (status === 401) {
     Message.error('token 失效请重新登录!')
     localStorage.removeItem('eletoken')
     router.push('/login')
   }
   return Promise.reject(error)
 })
-
 
 export default $axios

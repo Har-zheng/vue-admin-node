@@ -3,21 +3,26 @@
     <section class="from_container">
       <div class="manage_tip">
         <span class="title">后台管理系统</span>
-        <el-form
-          ref="loginFrom"
-          :model="loginUser"
-          :rules="rules"
-          label-width="80px"
-          class="demo-ruleForm"
-        >
-          <el-form-item label="邮箱" prop="email">
-            <el-input v-model="loginUser.email" type="email" />
+        <el-form ref="loginFrom"
+                 :model="loginUser"
+                 :rules="rules"
+                 label-width="80px"
+                 class="demo-ruleForm">
+          <el-form-item label="邮箱"
+                        prop="email">
+            <el-input v-model="loginUser.email"
+                      type="email" />
           </el-form-item>
-          <el-form-item label="密码" prop="password">
-            <el-input v-model="loginUser.password" type="password" autocomplete="off" />
+          <el-form-item label="密码"
+                        prop="password">
+            <el-input v-model="loginUser.password"
+                      type="password"
+                      autocomplete="off" />
           </el-form-item>
           <el-form-item>
-            <el-button class="btn" type="primary" @click="submitForm('loginFrom')">登录</el-button>
+            <el-button class="btn"
+                       type="primary"
+                       @click="submitForm('loginFrom')">登录</el-button>
           </el-form-item>
           <el-form-item>
             <div>
@@ -56,18 +61,18 @@ export default {
         if (valid) {
           this.$axios.post('/api/usrs/login', this.loginUser).then(res => {
             console.log(res)
+
             localStorage.setItem('eletoken', res.data.token)
             this.$message({
               showClose: true,
               type: 'success',
               message: '登录成功'
             })
-            var user = jwt_code(res.data.token) 
-            
+            var user = jwt_code(res.data.token)
             this.$store.dispatch('setAuthenticated', !this.isEmpty(user))
             this.$store.dispatch('user', user)
+            this.$router.push('/index')
           })
-          this.$router.push('/index')
         } else {
           console.log('error submit!!')
           return false
@@ -76,8 +81,8 @@ export default {
     },
     isEmpty(value) {
       return (
-        value === undefined || value === null || 
-        (typeof value === 'object' && Object.keys(value).length === 0)||
+        value === undefined || value === null ||
+        (typeof value === 'object' && Object.keys(value).length === 0) ||
         (typeof value === 'string' && value.trim().length === 0)
       )
     },

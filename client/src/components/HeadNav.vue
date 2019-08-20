@@ -43,6 +43,7 @@ export default {
       }
     },
     showInfoList(){
+      this.$router.push('/infoShow')
       console.log('个人信息')
     },
     logout() {
@@ -69,6 +70,7 @@ export default {
       width 36px
       border-radius 50%
     span
+      text-indent 10px
       color #fff
   .icon-container
     height 52px
