@@ -2,13 +2,15 @@
   <div class="index">
     <HeadNav></HeadNav>
     <LeftMenu></LeftMenu>
-    <router-view></router-view> 
-  </div> 
+    <section class="content">
+      <router-view></router-view>
+    </section>
+  </div>
 </template>
 <script>
 import HeadNav from '../components/HeadNav'
 import LeftMenu from '../components/LeftMenu'
-export default { 
+export default {
   name: 'Index',
   components: {
     HeadNav,
@@ -17,4 +19,12 @@ export default {
 }
 </script>
 <style lang="stylus" scoped>
+.index
+  height 100%
+.content
+  margin-left 200px
+  width: calc(100% - 200px);
+  height: calc(100% - 52px);
+  overflow: auto;
+
 </style>

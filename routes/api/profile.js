@@ -20,6 +20,7 @@ router.post("/add", passport.authenticate('jwt', { session: false }), (req, res)
   if (req.body.income) profileFiles.income = req.body.income;
   if (req.body.expend) profileFiles.expend = req.body.expend;
   if (req.body.cash) profileFiles.cash = req.body.cash;
+  if (req.body.remark) profileFiles.remark = req.body.remark;
   new Profile(profileFiles).save().then(profile => {
     res.json(profile);
   })

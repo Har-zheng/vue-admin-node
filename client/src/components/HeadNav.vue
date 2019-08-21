@@ -18,11 +18,10 @@
         </el-dropdown>
           <div class="welcome">
             <p class="name comename">欢迎</p>
-            <p class="name username">zhz</p>
+            <p class="name username">{{ user.name }}</p>
           </div>
-          <img src="//www.gravatar.com/avatar/487f87505f619bf9ea08f26bb34f8118?s=200&r=pg&d=mm" alt />
+          <img :src="user.avatar" alt />
         </div>
-        
       </el-col>
     </el-row>
   </header>
@@ -30,6 +29,11 @@
 <script>
 export default {
   name: 'headenav',
+  computed: {
+    user() {
+      return this.$store.getters.user
+    }
+  },
   methods: {
     handleCommand(command){
       console.log(command)
