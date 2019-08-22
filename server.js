@@ -2,7 +2,11 @@ const express = require('express');
 const path =  require('path')
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser')
+// 前端 history 配置 需要后端支持
+const history = require('connect-history-api-fallback')
 const app = express();
+app.use(history());
+
 // 引入 users
 const users = require('./routes/api/users.js')
 
@@ -17,6 +21,11 @@ const passport = require('passport')
 // 使用 bodyParser
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+// history 设置
+history({
+  index: '/index.html'
+});
 
 // 部署上线时读取静态文件
 app.use(express.static(path.join(__dirname, './client/dist')));
