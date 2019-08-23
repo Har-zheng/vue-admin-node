@@ -3,26 +3,21 @@
     <section class="from_container">
       <div class="manage_tip">
         <span class="title">后台管理系统</span>
-        <el-form ref="loginFrom"
-                 :model="loginUser"
-                 :rules="rules"
-                 label-width="80px"
-                 class="demo-ruleForm">
-          <el-form-item label="邮箱"
-                        prop="email">
-            <el-input v-model="loginUser.email"
-                      type="email" />
+        <el-form
+          ref="loginFrom"
+          :model="loginUser"
+          :rules="rules"
+          label-width="80px"
+          class="demo-ruleForm"
+        >
+          <el-form-item label="邮箱" prop="email">
+            <el-input v-model="loginUser.email" type="email" />
           </el-form-item>
-          <el-form-item label="密码"
-                        prop="password">
-            <el-input v-model="loginUser.password"
-                      type="password"
-                      autocomplete="off" />
+          <el-form-item label="密码" prop="password">
+            <el-input v-model="loginUser.password" type="password" autocomplete="off" />
           </el-form-item>
           <el-form-item>
-            <el-button class="btn"
-                       type="primary"
-                       @click="submitForm('loginFrom')">登录</el-button>
+            <el-button class="btn" type="primary" @click="submitForm('loginFrom')">登录</el-button>
           </el-form-item>
           <el-form-item>
             <div>
@@ -32,6 +27,9 @@
           </el-form-item>
         </el-form>
       </div>
+      <footer class="footer">
+        <a @click="tagnewA">豫ICP备18040731号</a>
+      </footer>
     </section>
   </div>
 </template>
@@ -86,6 +84,9 @@ export default {
         (typeof value === 'string' && value.trim().length === 0)
       )
     },
+    tagnewA(){
+      window.location.href = 'http://www.beian.miit.gov.cn'
+    },
     resetForm(formName) {
       this.$refs[formName].resetFields()
     }
@@ -98,6 +99,8 @@ export default {
   width 100%
   background url('../assets/bg_register.png')
   .from_container
+    background-color rgba(0, 0, 0, 0.7)
+    height 100%
     .manage_tip
       background #fff
       padding 30px 30px 30px 0
@@ -116,4 +119,18 @@ export default {
         width 100%
       .btn
         width 100%
+    .footer
+      height 32px
+      background-color #ccc
+      opacity 0.9
+      position absolute
+      bottom 0
+      width 100%
+      text-align center
+      a{
+        line-height 32px
+        color #444
+        text-decoration none
+        font-size 14px
+      }
 </style>
